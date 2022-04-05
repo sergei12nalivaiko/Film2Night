@@ -1,6 +1,6 @@
 package by.itechart.film2night.command;
 
-public class CommanProvider {
+public class CommandProvider {
 
 
     public static Command defineCommand(String command) {

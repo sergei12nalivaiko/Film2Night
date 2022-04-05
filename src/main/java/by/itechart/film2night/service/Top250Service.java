@@ -8,7 +8,11 @@ import java.util.List;
 public interface Top250Service {
 
     List<FilmTop250> findAllFilms(HttpServletRequest req);
+
     void deleteAllFilms();
+
     void insertFilms(List<FilmTop250> filmTop250List);
+
+    List<Integer> findAllIdFilms();
 
 }

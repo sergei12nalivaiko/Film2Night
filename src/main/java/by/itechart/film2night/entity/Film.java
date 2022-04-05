@@ -1,64 +1,42 @@
 package by.itechart.film2night.entity;
 
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class Film {
 
-    private int Id;
-    private String name;
+    private int kinopoiskId;
+    private String nameOriginal;
     private String posterUrl;
-    private String posterUrlPreview;
-    private String webUrl;
-    private Boolean is_blocked;
-    private int year;
     private Float ratingKinopoisk;
-    private Set<Country> countries;
-    private Set<Genre> genres;
+    private int ratingKinopoiskVoteCount;
+    private String webUrl;
+    private int year;
+    private int filmLength;
+    private Set<String> countries = new HashSet<>();
+    private Set<String> genres = new HashSet<>();
+    private Timestamp lastSync;
+    private String is_blocked;
 
-    public Film() {
+    private Film() {
     }
 
-    public Film(int id, String name, String posterUrl, String posterUrlPreview, String webUrl,
-                Boolean is_blocked, int year, Float ratingKinopoisk, Set<Country> countries, Set<Genre> genres) {
-        Id = id;
-        this.name = name;
-        this.posterUrl = posterUrl;
-        this.posterUrlPreview = posterUrlPreview;
-        this.webUrl = webUrl;
-        this.is_blocked = is_blocked;
-        this.year = year;
-        this.ratingKinopoisk = ratingKinopoisk;
-        this.countries = countries;
-        this.genres = genres;
+    public int getKinopoiskId() {
+        return kinopoiskId;
     }
 
-    public Film(int id, String name, String posterUrl, String posterUrlPreview, String webUrl,
-                Boolean is_blocked, int year, Float ratingKinopoisk) {
-        Id = id;
-        this.name = name;
-        this.posterUrl = posterUrl;
-        this.posterUrlPreview = posterUrlPreview;
-        this.webUrl = webUrl;
-        this.is_blocked = is_blocked;
-        this.year = year;
-        this.ratingKinopoisk = ratingKinopoisk;
+    public void setKinopoiskId(int kinopoiskId) {
+        this.kinopoiskId = kinopoiskId;
     }
 
-    public int getId() {
-        return Id;
+    public String getNameOriginal() {
+        return nameOriginal;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setNameOriginal(String nameOriginal) {
+        this.nameOriginal = nameOriginal;
     }
 
     public String getPosterUrl() {
@@ -69,12 +47,20 @@ public class Film {
         this.posterUrl = posterUrl;
     }
 
-    public String getPosterUrlPreview() {
-        return posterUrlPreview;
+    public Float getRatingKinopoisk() {
+        return ratingKinopoisk;
     }
 
-    public void setPosterUrlPreview(String posterUrlPreview) {
-        this.posterUrlPreview = posterUrlPreview;
+    public void setRatingKinopoisk(Float ratingKinopoisk) {
+        this.ratingKinopoisk = ratingKinopoisk;
+    }
+
+    public int getRatingKinopoiskVoteCount() {
+        return ratingKinopoiskVoteCount;
+    }
+
+    public void setRatingKinopoiskVoteCount(int ratingKinopoiskVoteCount) {
+        this.ratingKinopoiskVoteCount = ratingKinopoiskVoteCount;
     }
 
     public String getWebUrl() {
@@ -85,14 +71,6 @@ public class Film {
         this.webUrl = webUrl;
     }
 
-    public Boolean getIs_blocked() {
-        return is_blocked;
-    }
-
-    public void setIs_blocked(Boolean is_blocked) {
-        this.is_blocked = is_blocked;
-    }
-
     public int getYear() {
         return year;
     }
@@ -101,28 +79,44 @@ public class Film {
         this.year = year;
     }
 
-    public Float getRatingKinopoisk() {
-        return ratingKinopoisk;
+    public int getFilmLength() {
+        return filmLength;
     }
 
-    public void setRatingKinopoisk(Float ratingKinopoisk) {
-        this.ratingKinopoisk = ratingKinopoisk;
+    public void setFilmLength(int filmLength) {
+        this.filmLength = filmLength;
     }
 
-    public Set<Country> getCountries() {
+    public Set<String> getCountries() {
         return countries;
     }
 
-    public void setCountries(Set<Country> countries) {
+    public void setCountries(Set<String> countries) {
         this.countries = countries;
     }
 
-    public Set<Genre> getGenres() {
+    public Set<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<Genre> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
+    }
+
+    public Timestamp getLastSync() {
+        return lastSync;
+    }
+
+    public void setLastSync(Timestamp lastSync) {
+        this.lastSync = lastSync;
+    }
+
+    public String getIs_blocked() {
+        return is_blocked;
+    }
+
+    public void setIs_blocked(String is_blocked) {
+        this.is_blocked = is_blocked;
     }
 
     @Override
@@ -130,27 +124,104 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return Id == film.Id && year == film.year && Objects.equals(name, film.name) && Objects.equals(posterUrl, film.posterUrl) && Objects.equals(posterUrlPreview, film.posterUrlPreview) && Objects.equals(webUrl, film.webUrl) && Objects.equals(is_blocked, film.is_blocked) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) && Objects.equals(countries, film.countries) && Objects.equals(genres, film.genres);
+        return kinopoiskId == film.kinopoiskId && ratingKinopoiskVoteCount == film.ratingKinopoiskVoteCount && year == film.year && filmLength == film.filmLength && Objects.equals(nameOriginal, film.nameOriginal) && Objects.equals(posterUrl, film.posterUrl) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) && Objects.equals(webUrl, film.webUrl) && Objects.equals(countries, film.countries) && Objects.equals(genres, film.genres) && Objects.equals(lastSync, film.lastSync) && Objects.equals(is_blocked, film.is_blocked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, name, posterUrl, posterUrlPreview, webUrl, is_blocked, year, ratingKinopoisk, countries, genres);
+        return Objects.hash(kinopoiskId, nameOriginal, posterUrl, ratingKinopoisk, ratingKinopoiskVoteCount, webUrl, year, filmLength, countries, genres, lastSync, is_blocked);
     }
 
     @Override
     public String toString() {
         return "Film{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
+
+                ", kinopoiskId=" + kinopoiskId +
+                ", nameOriginal='" + nameOriginal + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
-                ", posterUrlPreview='" + posterUrlPreview + '\'' +
-                ", webUrl='" + webUrl + '\'' +
-                ", is_blocked=" + is_blocked +
-                ", year=" + year +
                 ", ratingKinopoisk=" + ratingKinopoisk +
+                ", ratingKinopoiskVoteCount=" + ratingKinopoiskVoteCount +
+                ", webUrl='" + webUrl + '\'' +
+                ", year=" + year +
+                ", filmLength=" + filmLength +
                 ", countries=" + countries +
                 ", genres=" + genres +
+                ", lastSync='" + lastSync + '\'' +
+                ", is_blocked='" + is_blocked + '\'' +
                 '}';
+    }
+
+    public static class filmBuilder {
+
+        private Film newFilm;
+
+        public filmBuilder() {
+            newFilm = new Film();
+        }
+
+        public filmBuilder setKinopoiskId(int kinopoiskId) {
+            newFilm.kinopoiskId = kinopoiskId;
+            return this;
+        }
+
+        public filmBuilder setNameOriginal(String nameOriginal) {
+            newFilm.nameOriginal = nameOriginal;
+            return this;
+        }
+
+        public filmBuilder setPosterUrl(String posterUrl) {
+            newFilm.posterUrl = posterUrl;
+            return this;
+        }
+
+        public filmBuilder setRatingKinopoisk(Float ratingKinopoisk) {
+            newFilm.ratingKinopoisk = ratingKinopoisk;
+            return this;
+        }
+
+        public filmBuilder setRatingKinopoiskVoteCount(int ratingKinopoiskVoteCount) {
+            newFilm.ratingKinopoiskVoteCount = ratingKinopoiskVoteCount;
+            return this;
+        }
+
+        public filmBuilder setWebUrl(String webUrl) {
+            newFilm.webUrl = webUrl;
+            return this;
+        }
+
+        public filmBuilder setYear(int year) {
+            newFilm.year = year;
+            return this;
+        }
+
+        public filmBuilder setFilmLength(int filmLength) {
+            newFilm.filmLength = filmLength;
+            return this;
+        }
+
+        public filmBuilder setCountries(Set<String> countries) {
+            newFilm.countries = countries;
+            return this;
+        }
+
+        public filmBuilder setGenres(Set<String> genres) {
+            newFilm.genres = genres;
+            return this;
+        }
+
+        public filmBuilder setLastSync(Timestamp lastSync) {
+            newFilm.lastSync = lastSync;
+            return this;
+        }
+
+        public filmBuilder setIs_blocked(String is_blocked) {
+            newFilm.is_blocked = is_blocked;
+            return this;
+        }
+
+        public Film build() {
+            return newFilm;
+        }
+
     }
 }

@@ -2,7 +2,6 @@ package by.itechart.film2night.connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -31,8 +30,8 @@ public class ConnectionPool {
         init();
     }
 
-    private void init(){
-        //
+    private void init() {
+
         LOGGER.info("in connection pool init");
         Properties dbProperties = new Properties();
         try {
@@ -51,9 +50,9 @@ public class ConnectionPool {
         LOGGER.info("Connection pool initialized = " + availableСonnections.size());
     }
 
-    public static ConnectionPool getInstance(){
+    public static ConnectionPool getInstance() {
         LOGGER.info("in connection pool getInstance");
-        if(!create.get()) {
+        if (!create.get()) {
             try {
                 reentrantLock.lock();
                 if (instance == null) {
@@ -67,7 +66,7 @@ public class ConnectionPool {
         return instance;
     }
 
-    public Connection takeConnection(){
+    public Connection takeConnection() {
         LOGGER.info("in connection pool takeConnection");
         ProxyConnection connection = null;
         try {
@@ -80,17 +79,16 @@ public class ConnectionPool {
         return connection;
     }
 
-    public void releaseConnection(Connection connection){
+    public void releaseConnection(Connection connection) {
         if (connection instanceof ProxyConnection && usedСonnections.remove(connection)) {
             try {
                 availableСonnections.put((ProxyConnection) connection);
             } catch (InterruptedException e) {
                 LOGGER.error("InterruptedException in method releaseConnection " + e.getMessage());
-                Thread.currentThread().interrupt();
+                Thread.currentThread().interrupt();//dont work
             }
         }
     }
-
 
 
     public void closePool() throws SQLException, InterruptedException {

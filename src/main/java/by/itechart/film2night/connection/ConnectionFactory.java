@@ -15,7 +15,7 @@ public class ConnectionFactory {
     private static final String DB_PASSWORD = "db.password";
     private static final String DB_DRIVER = "db.driver";
 
-    static ProxyConnection createConnection(Properties dbProperties){
+    static ProxyConnection createConnection(Properties dbProperties) {
         ProxyConnection proxyConnection = null;
         try {
             String dbUrl = dbProperties.getProperty(DB_URL);

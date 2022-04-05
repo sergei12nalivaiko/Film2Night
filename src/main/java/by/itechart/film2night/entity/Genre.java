@@ -7,20 +7,11 @@ public class Genre {
     private int Id;
     private String name;
 
-    public Genre() {
-    }
-
-    public Genre(int id, String name) {
-        Id = id;
-        this.name = name;
+    private Genre() {
     }
 
     public int getId() {
         return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
     }
 
     public String getName() {
@@ -50,5 +41,23 @@ public class Genre {
                 "Id=" + Id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static class genreBuilder {
+
+        private Genre newGenre;
+
+        public genreBuilder() {
+            this.newGenre = new Genre();
+        }
+
+        public genreBuilder setName(String name) {
+            newGenre.name = name;
+            return this;
+        }
+
+        public Genre build() {
+            return newGenre;
+        }
     }
 }

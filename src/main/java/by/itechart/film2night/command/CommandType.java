@@ -10,7 +10,7 @@ public enum CommandType {
             this.command = new LoadFilmByIdCommand();
         }
     },
-    TOP_250_BEST_FILMS{
+    TOP_250_BEST_FILMS {
         {
             this.command = new LoadFilmsTop250Command();
         }

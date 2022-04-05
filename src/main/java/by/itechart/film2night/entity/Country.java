@@ -19,10 +19,6 @@ public class Country {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -50,5 +46,23 @@ public class Country {
                 "Id=" + Id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static class countryBuilder {
+
+        private Country newCountry;
+
+        public countryBuilder() {
+            newCountry = new Country();
+        }
+
+        public countryBuilder setName(String name) {
+            newCountry.name = name;
+            return this;
+        }
+
+        public Country build() {
+            return newCountry;
+        }
     }
 }

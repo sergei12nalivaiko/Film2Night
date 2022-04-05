@@ -1,21 +1,38 @@
 package by.itechart.film2night.service.impl;
 
 import by.itechart.film2night.dao.FilmDao;
+import by.itechart.film2night.dao.impl.FilmDaoImpl;
 import by.itechart.film2night.entity.Film;
 import by.itechart.film2night.service.FilmService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class FilmServiceImpl implements FilmService {
 
-    private final  FilmDao filmDao;
 
-    public FilmServiceImpl(FilmDao filmDao) {
-        this.filmDao = filmDao;
+    private List<Integer> ids = new ArrayList<>();
+    private FilmDao filmDao = FilmDaoImpl.getInstance();
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    private static FilmServiceImpl instance;
+
+    private FilmServiceImpl() {
     }
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static FilmServiceImpl getInstance() {
+        if (instance == null) {
+            synchronized (FilmServiceImpl.class) {
+                if (instance == null) {
+                    instance = new FilmServiceImpl();
+                }
+            }
+        }
+        return instance;
+    }
 
 
     @Override
@@ -28,5 +45,16 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void insertFilm(Film film) {
         filmDao.insertFilm(film);
+    }
+
+    @Override
+    public List<Integer> findIdForTwoLastDay() {
+        ids = filmDao.findIdForTwoLastDay();
+        return ids;
+    }
+
+    @Override
+    public String findPosterUrl(int id) {
+        return filmDao.findPosterUrl(id);
     }
 }
