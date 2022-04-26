@@ -255,26 +255,23 @@ public class KinopoiskServiceImpl implements KinopoiskService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Установка запроса 5s
-        connection.setConnectTimeout(5 * 1000);
-        // входной поток
-        InputStream is = connection.getInputStream();
 
-        // 1k Буфер данных
+        connection.setConnectTimeout(5 * 1000);
+        InputStream is = connection.getInputStream();
         byte[] bs = new byte[1024];
-        // Читайте длину данных
         int len;
-        // Поток вывода файлов
-        File sf = new File("f:/film2night/src/main/resources/posters");
+
+        File sf = new File("/src/main/resources/posters");
         if (!sf.exists()) {
             sf.mkdirs();
         }
+
         OutputStream os = new FileOutputStream(sf.getPath() + "/" + filename);
-        // начать чтение
+
         while ((len = is.read(bs)) != -1) {
             os.write(bs, 0, len);
         }
-        // Завершено, закрыть все ссылки
+
         os.close();
         is.close();
     }

@@ -33,9 +33,8 @@ public class LoadFilmsTop250Command implements Command {
         Router router = new Router();
         try {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
-
-
         } catch (IOException e) {
+            LOGGER.error("Failed to load urlProperties");
             e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_TOP250);
@@ -47,15 +46,17 @@ public class LoadFilmsTop250Command implements Command {
         top250Service.deleteAllFilms();
         top250Service.insertFilms(filmTop250List);
         allIdFilms = top250Service.findAllIdFilms();
-        LOGGER.error(allIdFilms.size());
+        LOGGER.info(allIdFilms.size());
         loadFilmByIdCommand.execute(allIdFilms);
     }
 
+    @Override
     public void execute() {
         Router router = new Router();
         try {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
+            LOGGER.error("Failed to load urlProperties");
             e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_TOP250);

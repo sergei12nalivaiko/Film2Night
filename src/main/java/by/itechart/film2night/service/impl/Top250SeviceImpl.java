@@ -1,7 +1,7 @@
 package by.itechart.film2night.service.impl;
 
 import by.itechart.film2night.dao.FilmTop250Dao;
-import by.itechart.film2night.dao.impl.FilmTop250DaoImp;
+import by.itechart.film2night.dao.impl.FilmTop250DaoImpl;
 import by.itechart.film2night.entity.FilmTop250;
 import by.itechart.film2night.service.Top250Service;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Top250SeviceImpl implements Top250Service {
 
-    private final FilmTop250Dao filmTop250Dao = FilmTop250DaoImp.getInstance();
+    private final FilmTop250Dao filmTop250Dao = FilmTop250DaoImpl.getInstance();
     private static Top250SeviceImpl instance;
 
     private Top250SeviceImpl() {

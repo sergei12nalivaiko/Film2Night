@@ -18,7 +18,7 @@ public class Film {
     private Set<String> countries = new HashSet<>();
     private Set<String> genres = new HashSet<>();
     private Timestamp lastSync;
-    private String is_blocked;
+    private String isBlocked;
 
     private Film() {
     }
@@ -112,11 +112,11 @@ public class Film {
     }
 
     public String getIs_blocked() {
-        return is_blocked;
+        return isBlocked;
     }
 
-    public void setIs_blocked(String is_blocked) {
-        this.is_blocked = is_blocked;
+    public void setIs_blocked(String isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     @Override
@@ -124,12 +124,12 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return kinopoiskId == film.kinopoiskId && ratingKinopoiskVoteCount == film.ratingKinopoiskVoteCount && year == film.year && filmLength == film.filmLength && Objects.equals(nameOriginal, film.nameOriginal) && Objects.equals(posterUrl, film.posterUrl) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) && Objects.equals(webUrl, film.webUrl) && Objects.equals(countries, film.countries) && Objects.equals(genres, film.genres) && Objects.equals(lastSync, film.lastSync) && Objects.equals(is_blocked, film.is_blocked);
+        return kinopoiskId == film.kinopoiskId && ratingKinopoiskVoteCount == film.ratingKinopoiskVoteCount && year == film.year && filmLength == film.filmLength && Objects.equals(nameOriginal, film.nameOriginal) && Objects.equals(posterUrl, film.posterUrl) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) && Objects.equals(webUrl, film.webUrl) && Objects.equals(countries, film.countries) && Objects.equals(genres, film.genres) && Objects.equals(lastSync, film.lastSync) && Objects.equals(isBlocked, film.isBlocked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(kinopoiskId, nameOriginal, posterUrl, ratingKinopoisk, ratingKinopoiskVoteCount, webUrl, year, filmLength, countries, genres, lastSync, is_blocked);
+        return Objects.hash(kinopoiskId, nameOriginal, posterUrl, ratingKinopoisk, ratingKinopoiskVoteCount, webUrl, year, filmLength, countries, genres, lastSync, isBlocked);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class Film {
                 ", countries=" + countries +
                 ", genres=" + genres +
                 ", lastSync='" + lastSync + '\'' +
-                ", is_blocked='" + is_blocked + '\'' +
+                ", is_blocked='" + isBlocked + '\'' +
                 '}';
     }
 
@@ -215,7 +215,7 @@ public class Film {
         }
 
         public filmBuilder setIs_blocked(String is_blocked) {
-            newFilm.is_blocked = is_blocked;
+            newFilm.isBlocked = is_blocked;
             return this;
         }
 

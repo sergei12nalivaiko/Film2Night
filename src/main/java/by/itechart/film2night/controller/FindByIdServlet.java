@@ -41,6 +41,7 @@ public class FindByIdServlet extends HttpServlet {
         try {
             command.execute(request, response);
         } catch (ParseException e) {
+            LOGGER.error("Failed to execute command id");
             e.printStackTrace();
         }
     }
@@ -49,6 +50,7 @@ public class FindByIdServlet extends HttpServlet {
         try {
             ConnectionPool.getInstance().closePool();
         } catch (SQLException | InterruptedException e) {
+            LOGGER.error("Failed to close poolConnection");
             e.printStackTrace();
         }
     }

@@ -5,16 +5,12 @@ import by.itechart.film2night.command.impl.LoadFilmsTop250Command;
 
 public enum CommandType {
 
-    ID {
-        {
-            this.command = new LoadFilmByIdCommand();
-        }
-    },
-    TOP_250_BEST_FILMS {
-        {
-            this.command = new LoadFilmsTop250Command();
-        }
-    };
+    ID(new LoadFilmByIdCommand()),
+    TOP_250_BEST_FILMS(new LoadFilmsTop250Command());
+
+    CommandType(Command command) {
+        this.command = command;
+    }
 
     Command command;
 

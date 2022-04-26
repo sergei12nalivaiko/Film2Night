@@ -1,0 +1,18 @@
+version: "3"
+services:
+  my-web-app-db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=kinopoiskdb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - JDBC_DRIVER=com.mysql.cj.jdbc.Driver
+    ports:
+      - "3307:3306"
+  my-web-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - my-web-app-db

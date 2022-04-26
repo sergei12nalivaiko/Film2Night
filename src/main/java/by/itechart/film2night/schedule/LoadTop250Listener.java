@@ -13,7 +13,7 @@ public class LoadTop250Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         scheduler = Executors.newScheduledThreadPool(2);
-        Runnable command = new LoadTop250Runnable(sce.getServletContext());
+        Runnable command = new LoadTop250Runnable();
         scheduler.scheduleAtFixedRate(command, 20, 20, TimeUnit.SECONDS);
     }
 

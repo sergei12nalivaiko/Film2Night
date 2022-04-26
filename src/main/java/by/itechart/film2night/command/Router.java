@@ -2,7 +2,6 @@ package by.itechart.film2night.command;
 
 public class Router {
 
-
     private String pagePath;
 
     public Router() {

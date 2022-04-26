@@ -13,7 +13,7 @@ public class LoadByIdListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         scheduler = Executors.newScheduledThreadPool(2);
-        Runnable command = new LoadByIdRunnable(sce.getServletContext());
+        Runnable command = new LoadByIdRunnable();
         scheduler.scheduleAtFixedRate(command, 15, 15, TimeUnit.SECONDS);
     }
 

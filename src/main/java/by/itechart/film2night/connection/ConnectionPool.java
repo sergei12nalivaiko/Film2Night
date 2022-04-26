@@ -19,8 +19,8 @@ public class ConnectionPool {
     private static ConnectionPool instance;
     private BlockingQueue<ProxyConnection> availableСonnections;
     private BlockingQueue<ProxyConnection> usedСonnections;
-    private static ReentrantLock reentrantLock = new ReentrantLock();
-    private static AtomicBoolean create = new AtomicBoolean(false);
+    private static final ReentrantLock reentrantLock = new ReentrantLock();
+    private static final AtomicBoolean create = new AtomicBoolean(false);
     private static final String POOL_SIZE = "db.pool_size";
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String DB_CONNECTION_PATH = "database.properties";
@@ -36,7 +36,7 @@ public class ConnectionPool {
         Properties dbProperties = new Properties();
         try {
             dbProperties.load(ConnectionFactory.class.getClassLoader().getResourceAsStream(DB_CONNECTION_PATH));
-            int poolSize = Integer.valueOf(dbProperties.getProperty(POOL_SIZE));
+            int poolSize = Integer.parseInt(dbProperties.getProperty(POOL_SIZE));
             availableСonnections = new LinkedBlockingDeque<>(poolSize);
             usedСonnections = new LinkedBlockingDeque<>(poolSize);
             for (int i = 0; i < poolSize; i++) {

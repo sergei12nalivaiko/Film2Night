@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class CountryDaoImpl implements CountryDao {
 
     private static final String FIND_ID_BY_NAME = "SELECT id_country FROM kinopoiskdb.country  WHERE name_country=?";
-    private static final Integer DefaultCountryId = 1;
+    private static final Integer DEFAULT_COUNTRY_ID = 1;
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -46,21 +46,9 @@ public class CountryDaoImpl implements CountryDao {
                 return id;
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to find country by id");
             e.printStackTrace();
         }
-        return DefaultCountryId;
-    }
-
-    @Override
-    public int findIdByName(String name, Connection connection) throws SQLException {
-        LOGGER.info("try to find ID by country_name");
-        PreparedStatement findId = connection.prepareStatement(FIND_ID_BY_NAME);
-        findId.setString(1, name);
-        ResultSet resultSet = findId.executeQuery();
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id_country");
-            return id;
-        }
-        return DefaultCountryId;
+        return DEFAULT_COUNTRY_ID;
     }
 }

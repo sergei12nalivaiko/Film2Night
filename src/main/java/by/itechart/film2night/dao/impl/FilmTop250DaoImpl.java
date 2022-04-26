@@ -9,24 +9,24 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilmTop250DaoImp implements FilmTop250Dao {
+public class FilmTop250DaoImpl implements FilmTop250Dao {
 
-    private static final String INSERT_FILM = "INSERT INTO film_top_250 (id_film,name_film)" + " values (?,?)";
+    private static final String INSERT_FILM = "INSERT INTO film_top_250 (id_film,name_film) values (?,?)";
     private static final String FIND_TOP_250 = "SELECT * FROM film_top_250";
     private static final String DELETE_ALL_FILMS = "DELETE FROM film_top_250";
     private static final String FIND_ALL_ID_FILMS = "SELECT id_film FROM kinopoiskdb.film_top_250";
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger();
-    private static FilmTop250DaoImp instance;
+    private static FilmTop250DaoImpl instance;
 
-    private FilmTop250DaoImp() {
+    private FilmTop250DaoImpl() {
     }
 
-    public static FilmTop250DaoImp getInstance() {
+    public static FilmTop250DaoImpl getInstance() {
         if (instance == null) {
-            synchronized (FilmTop250DaoImp.class) {
+            synchronized (FilmTop250DaoImpl.class) {
                 if (instance == null) {
-                    instance = new FilmTop250DaoImp();
+                    instance = new FilmTop250DaoImpl();
                 }
             }
         }
@@ -68,6 +68,7 @@ public class FilmTop250DaoImp implements FilmTop250Dao {
                 LOGGER.error("film_top_250 do not add");
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to insert films");
             e.printStackTrace();
         }
     }
@@ -86,6 +87,7 @@ public class FilmTop250DaoImp implements FilmTop250Dao {
                 LOGGER.error("film_top_250 do not delete");
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to delete all films");
             e.printStackTrace();
         }
     }
@@ -101,6 +103,7 @@ public class FilmTop250DaoImp implements FilmTop250Dao {
                 idList.add(resultSet.getInt("id_film"));
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to find all films id");
             LOGGER.error(e.getMessage());
         }
         return idList;
@@ -108,11 +111,11 @@ public class FilmTop250DaoImp implements FilmTop250Dao {
 
     private FilmTop250 createFilmTop250(ResultSet resultSet) throws SQLException {
         LOGGER.info("try to create film_top_250");
-        int film_id = resultSet.getInt("id");
-        String film_name = resultSet.getString("name");
+        int filmId = resultSet.getInt("id");
+        String filmName = resultSet.getString("name");
         FilmTop250 filmTop250 = new FilmTop250.filmTop250Builder()
-                .setId(film_id)
-                .setName(film_name)
+                .setId(filmId)
+                .setName(filmName)
                 .build();
         return filmTop250;
     }

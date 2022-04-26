@@ -9,22 +9,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GenreDaoImp implements GenreDao {
+public class GenreDaoImpl implements GenreDao {
 
     private static final String FIND_ID_BY_NAME = "SELECT id_genre FROM kinopoiskdb.genre  WHERE name_genre=?";
-    private static final Integer DefaultGenreId = 1;
+    private static final Integer DEFAULT_GENRE_ID = 1;
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final Logger LOGGER = LogManager.getLogger();
-    private static GenreDaoImp instance;
+    private static GenreDaoImpl instance;
 
-    private GenreDaoImp() {
+    private GenreDaoImpl() {
     }
 
-    public static GenreDaoImp getInstance() {
+    public static GenreDaoImpl getInstance() {
         if (instance == null) {
-            synchronized (GenreDaoImp.class) {
+            synchronized (GenreDaoImpl.class) {
                 if (instance == null) {
-                    instance = new GenreDaoImp();
+                    instance = new GenreDaoImpl();
                 }
             }
         }
@@ -40,7 +40,6 @@ public class GenreDaoImp implements GenreDao {
              PreparedStatement findId = connection.prepareStatement(FIND_ID_BY_NAME)) {
             findId.setString(1, name);
             ResultSet resultSet = findId.executeQuery();
-            LOGGER.warn(resultSet.getInt("id_genre"));
             while (resultSet.next()) {
                 int id = resultSet.getInt("id_genre");
                 return id;
@@ -48,19 +47,6 @@ public class GenreDaoImp implements GenreDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return DefaultGenreId;
-    }
-
-    @Override
-    public int findIdByName(String name, Connection connection) throws SQLException {
-        LOGGER.info("try to find ID by genre_name");
-        PreparedStatement findId = connection.prepareStatement(FIND_ID_BY_NAME);
-        findId.setString(1, name);
-        ResultSet resultSet = findId.executeQuery();
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id_genre");
-            return id;
-        }
-        return DefaultGenreId;
+        return DEFAULT_GENRE_ID;
     }
 }

@@ -38,6 +38,7 @@ public class Top250Servlet extends HttpServlet {
         try {
             command.execute(request, response);
         } catch (ParseException e) {
+            LOGGER.error("Failed to execute command type");
             e.printStackTrace();
         }
     }

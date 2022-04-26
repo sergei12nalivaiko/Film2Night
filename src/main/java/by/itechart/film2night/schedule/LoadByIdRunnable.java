@@ -4,17 +4,14 @@ import by.itechart.film2night.command.impl.LoadFilmByIdCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletContext;
-
 
 public class LoadByIdRunnable implements Runnable {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private LoadFilmByIdCommand loadFilmByIdCommand = new LoadFilmByIdCommand();
-    private ServletContext servletContext;
+    private final LoadFilmByIdCommand loadFilmByIdCommand = new LoadFilmByIdCommand();
 
-    public LoadByIdRunnable(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    public LoadByIdRunnable() {
+
     }
 
     @Override
@@ -22,6 +19,5 @@ public class LoadByIdRunnable implements Runnable {
         LOGGER.warn("in run method LoadById");
 
         loadFilmByIdCommand.execute();
-
     }
 }

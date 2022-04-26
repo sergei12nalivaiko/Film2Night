@@ -22,7 +22,7 @@ public class FilmDaoImpl implements FilmDao {
     private static final String FIND_ALL_ID_BY_DATE_BEFORE = "SELECT distinct kinopoiskId FROM kinopoiskdb.film  WHERE lastSync < ?";
     private static final String FIND_POSTER_BY_ID = "SELECT distinct posterUrl FROM kinopoiskdb.film where kinopoiskId = ?";
     private static final Logger LOGGER = LogManager.getLogger();
-    private GenreDao genreDaoImp = GenreDaoImp.getInstance();
+    private GenreDao genreDaoImp = GenreDaoImpl.getInstance();
     private final CountryDao countryDaoImp = CountryDaoImpl.getInstance();
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static FilmDaoImpl instance;
@@ -50,9 +50,9 @@ public class FilmDaoImpl implements FilmDao {
         List<String> countryList = new ArrayList<>(film.getCountries());
         List<String> genreList = new ArrayList<>(film.getGenres());
         Film filmDuplicate = findFilmById(film.getKinopoiskId());
-        LOGGER.error(film.getKinopoiskId());
-        LOGGER.error(filmDuplicate);
-        int lenght = countryList.size() > genreList.size() ? countryList.size() : genreList.size();
+        LOGGER.info(film.getKinopoiskId());
+        LOGGER.info(filmDuplicate);
+        int length = countryList.size() > genreList.size() ? countryList.size() : genreList.size();
 
         LOGGER.warn(countryList.get(0));
 
@@ -63,15 +63,15 @@ public class FilmDaoImpl implements FilmDao {
 
         try (Connection connection = connectionPool.takeConnection();
              PreparedStatement insertFilmStatement = connection.prepareStatement(INSERT_FILM)) {
-            int country_id = 0;
-            int genre_id = 0;
-            for (int i = 0; i < lenght; i++) {
+            int countryId = 0;
+            int genreId = 0;
+            for (int i = 0; i < length; i++) {
 
                 if (i < countryList.size()) {
-                    country_id = countryDaoImp.findIdByName(countryList.get(i), connection);
+                    countryId = countryDaoImp.findIdByName(countryList.get(i));
                 }
                 if (i < genreList.size()) {
-                    genre_id = genreDaoImp.findIdByName(genreList.get(i), connection);
+                    genreId = genreDaoImp.findIdByName(genreList.get(i));
                 }
 
                 insertFilmStatement.setInt(1, film.getKinopoiskId());
@@ -82,8 +82,8 @@ public class FilmDaoImpl implements FilmDao {
                 insertFilmStatement.setString(6, film.getWebUrl());
                 insertFilmStatement.setInt(7, film.getYear());
                 insertFilmStatement.setInt(8, film.getFilmLength());
-                insertFilmStatement.setInt(9, country_id);
-                insertFilmStatement.setInt(10, genre_id);
+                insertFilmStatement.setInt(9, countryId);
+                insertFilmStatement.setInt(10, genreId);
                 insertFilmStatement.setTimestamp(11, film.getLastSync());
                 insertFilmStatement.setString(12, film.getIs_blocked());
                 int rowCount = insertFilmStatement.executeUpdate();
@@ -94,6 +94,7 @@ public class FilmDaoImpl implements FilmDao {
                 }
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to insert film");
             e.printStackTrace();
         }
     }
@@ -110,6 +111,7 @@ public class FilmDaoImpl implements FilmDao {
                 return createFilm(resultSet);
             }
         } catch (SQLException | ParseException e) {
+            LOGGER.error("Failed to find film by id");
             e.printStackTrace();
         }
         return null;
@@ -127,6 +129,7 @@ public class FilmDaoImpl implements FilmDao {
                 LOGGER.error(" do not delete film by id");
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to delete film by id");
             e.printStackTrace();
         }
     }
@@ -166,6 +169,7 @@ public class FilmDaoImpl implements FilmDao {
                 return resultSet.getString("posterUrl");
             }
         } catch (SQLException e) {
+            LOGGER.error("Failed to find poster url by film id");
             e.printStackTrace();
         }
         return null;
@@ -173,30 +177,30 @@ public class FilmDaoImpl implements FilmDao {
 
     private Film createFilm(ResultSet resultSet) throws SQLException, ParseException {
         LOGGER.info("try to create film");
-        int film_id = resultSet.getInt("kinopoiskId");
-        String film_nameOriginal = resultSet.getString("nameOriginal");
-        String film_posterUrl = resultSet.getString("posterUrl");
-        float film_rating = resultSet.getFloat("ratingKinopoisk");
-        int film_ratingKinopoiskVoteCount = resultSet.getInt("ratingKinopoiskVoteCount");
-        String film_webUrl = resultSet.getString("webUrl");
-        int film_year = resultSet.getInt("year");
-        int film_filmLength = resultSet.getInt("filmLength");
-        String film_lastSync = resultSet.getString("lastSync");
-        String film_is_blocked = resultSet.getString("isBlocked");
-        Timestamp lastSyn = Timestamp.valueOf(film_lastSync);
+        int filmId = resultSet.getInt("kinopoiskId");
+        String filmNameOriginal = resultSet.getString("nameOriginal");
+        String filmPosterUrl = resultSet.getString("posterUrl");
+        float filmRating = resultSet.getFloat("ratingKinopoisk");
+        int filmRatingKinopoiskVoteCount = resultSet.getInt("ratingKinopoiskVoteCount");
+        String filmWebUrl = resultSet.getString("webUrl");
+        int filmYear = resultSet.getInt("year");
+        int filmFilmLength = resultSet.getInt("filmLength");
+        String filmLastSync = resultSet.getString("lastSync");
+        String filmIsBlocked = resultSet.getString("isBlocked");
+        Timestamp lastSyn = Timestamp.valueOf(filmLastSync);
         LOGGER.info(lastSyn);
 
         return new Film.filmBuilder()
-                .setKinopoiskId(film_id)
-                .setNameOriginal(film_nameOriginal)
-                .setPosterUrl(film_posterUrl)
-                .setRatingKinopoisk(film_rating)
-                .setRatingKinopoiskVoteCount(film_ratingKinopoiskVoteCount)
-                .setWebUrl(film_webUrl)
-                .setYear(film_year)
-                .setFilmLength(film_filmLength)
+                .setKinopoiskId(filmId)
+                .setNameOriginal(filmNameOriginal)
+                .setPosterUrl(filmPosterUrl)
+                .setRatingKinopoisk(filmRating)
+                .setRatingKinopoiskVoteCount(filmRatingKinopoiskVoteCount)
+                .setWebUrl(filmWebUrl)
+                .setYear(filmYear)
+                .setFilmLength(filmFilmLength)
                 .setLastSync(lastSyn)
-                .setIs_blocked(film_is_blocked)
+                .setIs_blocked(filmIsBlocked)
                 .build();
     }
 }
