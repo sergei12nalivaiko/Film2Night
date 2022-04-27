@@ -5,9 +5,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=kinopoiskdb
-      - MYSQL_USER=root
       - MYSQL_PASSWORD=password
-      - JDBC_DRIVER=com.mysql.cj.jdbc.Driver
     ports:
       - "3307:3306"
   my-web-app:
