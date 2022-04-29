@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <listener>
+        <listener-class>by.itechart.film2night.schedule.LoadTop250Listener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>by.itechart.film2night.schedule.LoadByIdListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>Top250Servlet</servlet-name>
+        <servlet-class>by.itechart.film2night.controller.Top250Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FindByIdServlet</servlet-name>
+        <servlet-class>by.itechart.film2night.controller.FindByIdServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Top250Servlet</servlet-name>
+        <url-pattern>/api/v2.2/films/top</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FindByIdServlet</servlet-name>
+        <url-pattern>/api/v2.2/films/*</url-pattern>
+    </servlet-mapping>
+</web-app>
