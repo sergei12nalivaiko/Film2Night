@@ -57,7 +57,6 @@ public class FilmDaoImpl implements FilmDao {
         LOGGER.warn(countryList.get(0));
 
         if (filmDuplicate != null) {
-
             deleteFilmById(film.getKinopoiskId());
         }
 
@@ -85,7 +84,7 @@ public class FilmDaoImpl implements FilmDao {
                 insertFilmStatement.setInt(9, countryId);
                 insertFilmStatement.setInt(10, genreId);
                 insertFilmStatement.setTimestamp(11, film.getLastSync());
-                insertFilmStatement.setString(12, film.getIs_blocked());
+                insertFilmStatement.setString(12, film.getIsBlocked());
                 int rowCount = insertFilmStatement.executeUpdate();
                 if (rowCount != 0) {
                     LOGGER.info("add film");
@@ -95,7 +94,6 @@ public class FilmDaoImpl implements FilmDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to insert film");
-            e.printStackTrace();
         }
     }
 
@@ -112,7 +110,6 @@ public class FilmDaoImpl implements FilmDao {
             }
         } catch (SQLException | ParseException e) {
             LOGGER.error("Failed to find film by id");
-            e.printStackTrace();
         }
         return null;
     }
@@ -130,7 +127,6 @@ public class FilmDaoImpl implements FilmDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to delete film by id");
-            e.printStackTrace();
         }
     }
 
@@ -153,7 +149,7 @@ public class FilmDaoImpl implements FilmDao {
                 idList.add(resultSet.getInt("kinopoiskId"));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error("Failed to find Id For Two Last Day");
         }
         return idList;
     }
@@ -170,7 +166,6 @@ public class FilmDaoImpl implements FilmDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to find poster url by film id");
-            e.printStackTrace();
         }
         return null;
     }
@@ -200,7 +195,7 @@ public class FilmDaoImpl implements FilmDao {
                 .setYear(filmYear)
                 .setFilmLength(filmFilmLength)
                 .setLastSync(lastSyn)
-                .setIs_blocked(filmIsBlocked)
+                .setIsBlocked(filmIsBlocked)
                 .build();
     }
 }

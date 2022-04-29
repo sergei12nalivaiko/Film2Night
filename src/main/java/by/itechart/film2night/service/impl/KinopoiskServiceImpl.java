@@ -61,10 +61,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
             } else {
                 LOGGER.info("Connect is not successful");
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info("Failed to connect to kinopoisk api");
         }
         return null;
     }
@@ -90,10 +88,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
                 LOGGER.info("Connect is not successful");
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info("Failed to connect to kinopoisk api");
         }
         return null;
     }
@@ -109,11 +105,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
                 responseContent.append(line);
                 LOGGER.info(responseContent);
             }
-            reader.close();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to read response");
         }
         return responseContent;
     }
@@ -126,9 +119,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
             printWriter = res.getWriter();
             printWriter.print(responseContent);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to write response");
         }
-
         LOGGER.info(responseContent);
     }
 
@@ -222,7 +214,7 @@ public class KinopoiskServiceImpl implements KinopoiskService {
                 .setCountries(setOfCountries)
                 .setGenres(setOfGenres)
                 .setLastSync(timestamp)
-                .setIs_blocked("false")
+                .setIsBlocked("false")
                 .build();
     }
 
@@ -230,8 +222,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
     public void downloadPoster(String path) throws IOException {
 
         String filename = parseUrl(path);
-        LOGGER.error("download poster" + filename);
-        LOGGER.error("download poster" + path);
+        LOGGER.info("download poster" + filename);
+        LOGGER.info("download poster" + path);
         try {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
             String key = urlProperties.getProperty(APP_API_KEY);
@@ -261,7 +253,8 @@ public class KinopoiskServiceImpl implements KinopoiskService {
         byte[] bs = new byte[1024];
         int len;
 
-        File sf = new File("/src/main/resources/posters");
+        //File sf = new File("/src/main/resources/posters");
+        File sf = new File("f:\\film2night\\src\\main\\resources\\posters\\");
         if (!sf.exists()) {
             sf.mkdirs();
         }

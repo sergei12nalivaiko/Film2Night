@@ -111,11 +111,11 @@ public class Film {
         this.lastSync = lastSync;
     }
 
-    public String getIs_blocked() {
+    public String getIsBlocked() {
         return isBlocked;
     }
 
-    public void setIs_blocked(String isBlocked) {
+    public void setIsBlocked(String isBlocked) {
         this.isBlocked = isBlocked;
     }
 
@@ -124,12 +124,18 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return kinopoiskId == film.kinopoiskId && ratingKinopoiskVoteCount == film.ratingKinopoiskVoteCount && year == film.year && filmLength == film.filmLength && Objects.equals(nameOriginal, film.nameOriginal) && Objects.equals(posterUrl, film.posterUrl) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) && Objects.equals(webUrl, film.webUrl) && Objects.equals(countries, film.countries) && Objects.equals(genres, film.genres) && Objects.equals(lastSync, film.lastSync) && Objects.equals(isBlocked, film.isBlocked);
+        return kinopoiskId == film.kinopoiskId && ratingKinopoiskVoteCount == film.ratingKinopoiskVoteCount &&
+                year == film.year && filmLength == film.filmLength && Objects.equals(nameOriginal, film.nameOriginal) &&
+                Objects.equals(posterUrl, film.posterUrl) && Objects.equals(ratingKinopoisk, film.ratingKinopoisk) &&
+                Objects.equals(webUrl, film.webUrl) && Objects.equals(countries, film.countries) &&
+                Objects.equals(genres, film.genres) && Objects.equals(lastSync, film.lastSync) &&
+                Objects.equals(isBlocked, film.isBlocked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(kinopoiskId, nameOriginal, posterUrl, ratingKinopoisk, ratingKinopoiskVoteCount, webUrl, year, filmLength, countries, genres, lastSync, isBlocked);
+        return Objects.hash(kinopoiskId, nameOriginal, posterUrl, ratingKinopoisk, ratingKinopoiskVoteCount, webUrl,
+                            year, filmLength, countries, genres, lastSync, isBlocked);
     }
 
     @Override
@@ -214,7 +220,7 @@ public class Film {
             return this;
         }
 
-        public filmBuilder setIs_blocked(String is_blocked) {
+        public filmBuilder setIsBlocked(String is_blocked) {
             newFilm.isBlocked = is_blocked;
             return this;
         }

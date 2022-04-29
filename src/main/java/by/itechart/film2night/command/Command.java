@@ -9,6 +9,5 @@ public interface Command {
 
     void execute(HttpServletRequest request, HttpServletResponse response) throws ParseException;
     void execute();
-    default void execute(List<Integer> allIdFilms){
-    }
+    void execute(List<Integer> allIdFilms);
 }

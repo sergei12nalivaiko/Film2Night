@@ -35,7 +35,6 @@ public class LoadFilmsTop250Command implements Command {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
             LOGGER.error("Failed to load urlProperties");
-            e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_TOP250);
         router.setPagePath(url);
@@ -57,7 +56,6 @@ public class LoadFilmsTop250Command implements Command {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
             LOGGER.error("Failed to load urlProperties");
-            e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_TOP250);
         router.setPagePath(url);
@@ -68,5 +66,11 @@ public class LoadFilmsTop250Command implements Command {
         top250Service.insertFilms(filmTop250List);
         allIdFilms = top250Service.findAllIdFilms();
         loadFilmByIdCommand.execute(allIdFilms);
+    }
+
+    @Override
+    public void execute(List<Integer> allIdFilms) {
+
+
     }
 }

@@ -47,7 +47,6 @@ public class CountryDaoImpl implements CountryDao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to find country by id");
-            e.printStackTrace();
         }
         return DEFAULT_COUNTRY_ID;
     }

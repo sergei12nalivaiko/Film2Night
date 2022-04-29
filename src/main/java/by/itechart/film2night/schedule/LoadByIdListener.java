@@ -12,9 +12,9 @@ public class LoadByIdListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        scheduler = Executors.newScheduledThreadPool(2);
+        scheduler = Executors.newScheduledThreadPool(5);
         Runnable command = new LoadByIdRunnable();
-        scheduler.scheduleAtFixedRate(command, 15, 15, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(command, 30, 3600, TimeUnit.SECONDS);
     }
 
     @Override

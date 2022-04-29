@@ -33,7 +33,6 @@ public class LoadFilmByIdCommand implements Command {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
             LOGGER.error("Failed to load urlProperties");
-            e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_FIND_BY_ID);
         router.setPagePath(url + request.getAttribute("id"));
@@ -47,7 +46,6 @@ public class LoadFilmByIdCommand implements Command {
             film = kinopoiskService.parseJsonFilm(responseContent.toString());
         } catch (ParseException e) {
             LOGGER.error("Failed to parseJsonFilm");
-            e.printStackTrace();
         }
         filmService.insertFilm(film);
         String posterUrl = filmService.findPosterUrl(Integer.valueOf(idFilm));
@@ -56,7 +54,6 @@ public class LoadFilmByIdCommand implements Command {
             kinopoiskService.downloadPoster(posterUrl);
         } catch (IOException e) {
             LOGGER.error("Failed to downloadPoster");
-            e.printStackTrace();
         }
     }
 
@@ -67,7 +64,6 @@ public class LoadFilmByIdCommand implements Command {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
             LOGGER.error("Failed to load urlProperties");
-            e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_FIND_BY_ID);
         for (Integer id : allIdFilms) {
@@ -79,7 +75,6 @@ public class LoadFilmByIdCommand implements Command {
                 film = kinopoiskService.parseJsonFilm(responseContent.toString());
             } catch (ParseException e) {
                 LOGGER.error("Failed to parseJsonFilm");
-                e.printStackTrace();
             }
             filmService.insertFilm(film);
         }
@@ -93,7 +88,6 @@ public class LoadFilmByIdCommand implements Command {
             urlProperties.load(getClass().getClassLoader().getResourceAsStream("url.properties"));
         } catch (IOException e) {
             LOGGER.error("Failed to load urlProperties");
-            e.printStackTrace();
         }
         String url = urlProperties.getProperty(URL_FIND_BY_ID);
         for (Integer id : ids) {
@@ -105,11 +99,8 @@ public class LoadFilmByIdCommand implements Command {
                 film = kinopoiskService.parseJsonFilm(responseContent.toString());
             } catch (ParseException e) {
                 LOGGER.error("Failed to parseJsonFilm");
-                e.printStackTrace();
             }
             filmService.insertFilm(film);
         }
     }
-
-
 }

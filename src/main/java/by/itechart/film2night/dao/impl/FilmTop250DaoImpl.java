@@ -69,7 +69,6 @@ public class FilmTop250DaoImpl implements FilmTop250Dao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to insert films");
-            e.printStackTrace();
         }
     }
 
@@ -88,7 +87,6 @@ public class FilmTop250DaoImpl implements FilmTop250Dao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to delete all films");
-            e.printStackTrace();
         }
     }
 
@@ -104,7 +102,6 @@ public class FilmTop250DaoImpl implements FilmTop250Dao {
             }
         } catch (SQLException e) {
             LOGGER.error("Failed to find all films id");
-            LOGGER.error(e.getMessage());
         }
         return idList;
     }

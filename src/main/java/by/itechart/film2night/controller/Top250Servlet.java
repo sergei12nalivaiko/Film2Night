@@ -39,17 +39,14 @@ public class Top250Servlet extends HttpServlet {
             command.execute(request, response);
         } catch (ParseException e) {
             LOGGER.error("Failed to execute command type");
-            e.printStackTrace();
         }
     }
 
     public void destroy() {
         try {
             ConnectionPool.getInstance().closePool();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.error("Failed to destroy connection pool");
         }
     }
 }

@@ -11,13 +11,11 @@ public class LoadByIdRunnable implements Runnable {
     private final LoadFilmByIdCommand loadFilmByIdCommand = new LoadFilmByIdCommand();
 
     public LoadByIdRunnable() {
-
     }
 
     @Override
     public void run() {
         LOGGER.warn("in run method LoadById");
-
         loadFilmByIdCommand.execute();
     }
 }

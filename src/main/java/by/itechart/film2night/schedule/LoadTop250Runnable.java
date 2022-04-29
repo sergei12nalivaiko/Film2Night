@@ -11,7 +11,6 @@ public class LoadTop250Runnable implements Runnable {
     private LoadFilmsTop250Command loadFilmsTop250Command = new LoadFilmsTop250Command();
 
     public LoadTop250Runnable() {
-
     }
 
     @Override

@@ -45,7 +45,6 @@ public class ConnectionPool {
             }
         } catch (IOException e) {
             LOGGER.error("Unable to load DB properties!", e);
-            e.printStackTrace();
         }
         LOGGER.info("Connection pool initialized = " + availableСonnections.size());
     }
@@ -73,7 +72,7 @@ public class ConnectionPool {
             connection = availableСonnections.take();
             usedСonnections.put(connection);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error("Failed to take connection");
             Thread.currentThread().interrupt();
         }
         return connection;
@@ -85,7 +84,7 @@ public class ConnectionPool {
                 availableСonnections.put((ProxyConnection) connection);
             } catch (InterruptedException e) {
                 LOGGER.error("InterruptedException in method releaseConnection " + e.getMessage());
-                Thread.currentThread().interrupt();//dont work
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -110,5 +109,4 @@ public class ConnectionPool {
             }
         }
     }
-
 }

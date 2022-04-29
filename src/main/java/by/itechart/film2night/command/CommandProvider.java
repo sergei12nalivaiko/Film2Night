@@ -1,5 +1,6 @@
 package by.itechart.film2night.command;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,7 @@ public class CommandProvider {
     public static Command defineCommand(String command) {
         Command current = null;
 
-        if (command.isEmpty()) {
+        if (command != null && StringUtils.isEmpty(command)) {
             return null;
         }
         try {
@@ -18,9 +19,7 @@ public class CommandProvider {
             current = currentType.getCurrentCommand();
         } catch (IllegalArgumentException e) {
             LOGGER.error("Command - {} do not exist!", command);
-            e.printStackTrace();
         }
         return current;
     }
-
 }
